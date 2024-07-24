@@ -1,8 +1,8 @@
 [versions]
-agp = "8.2.0"
+androidGradlePlugin = "8.5.1"
 dexKit = "2.0.0"
-ezXHelper = "2.0.8"
-kotlin = "1.9.22"
+ezXHelper = "2.2.0"
+kotlin = "2.0.0"
 xposed = "82"
 
 [libraries]
@@ -11,6 +11,6 @@ ezXHelper = { module = "com.github.kyuubiran:EzXHelper", version.ref = "ezXHelpe
 xposed = { module = "de.robv.android.xposed:api", version.ref = "xposed" }
 
 [plugins]
-androidApplication = { id = "com.android.application", version.ref = "agp" }
-kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 lsparanoid = { id = "org.lsposed.lsparanoid", version = "0.6.0" }
