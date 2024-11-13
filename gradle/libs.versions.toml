@@ -1,8 +1,9 @@
 [versions]
-androidGradlePlugin = "8.5.1"
+androidGradlePlugin = "8.7.3"
 dexKit = "2.0.0"
 ezXHelper = "2.2.0"
-kotlin = "2.0.0"
+kotlin = "2.1.0"
+lsparanoid = "0.6.0"
 xposed = "82"
 
 [libraries]
@@ -13,4 +14,4 @@ xposed = { module = "de.robv.android.xposed:api", version.ref = "xposed" }
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-lsparanoid = { id = "org.lsposed.lsparanoid", version = "0.6.0" }
+lsparanoid = { id = "org.lsposed.lsparanoid", version.ref = "lsparanoid" }

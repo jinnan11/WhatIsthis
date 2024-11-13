@@ -1,5 +1,2 @@
--keep class what.isThis.MainHook {
-    <init>();
-}
-
--dontwarn miui.drm.**
+-keep class what.isThis.MainHook { <init>(); }
+-keep class miui.drm.** { *; }

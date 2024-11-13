@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 import com.android.build.gradle.internal.api.BaseVariantOutputImpl
 import java.util.Properties
 
@@ -56,12 +58,11 @@ android {
         }
         debug {
             if (keystorePath != null) signingConfig = signingConfigs.getByName("release")
-            applicationIdSuffix = ".debug"
         }
     }
     dependenciesInfo.includeInApk = false
-    java.toolchain.languageVersion = JavaLanguageVersion.of(17)
-    kotlin.jvmToolchain(17)
+    java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+    kotlin.jvmToolchain(21)
     packaging {
         resources.excludes += "**"
         applicationVariants.all {

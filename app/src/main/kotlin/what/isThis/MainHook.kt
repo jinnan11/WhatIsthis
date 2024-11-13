@@ -66,13 +66,20 @@ class MainHook : IXposedHookLoadPackage {
 
                     val map = mapOf(
                         "DrmResult" to setOf(
-                            "theme", "ThemeManagerTag", "/system", "check rights isLegal:"
+                            "theme",
+                            "ThemeManagerTag",
+                            "/system",
+                            "check rights isLegal:"
                         ),
                         "Price" to setOf(
                             "%.2f"
                         ),
                         "LargeIcon" to setOf(
-                            "apply failed", "/data/system/theme/large_icons/", "default_large_icon_product_id", "largeicons", "relativePackageList is empty"
+                            "apply failed",
+                            "/data/system/theme/large_icons/",
+                            "default_large_icon_product_id",
+                            "largeicons",
+                            "relativePackageList is empty"
                         ),
                     )
 
@@ -95,9 +102,15 @@ class MainHook : IXposedHookLoadPackage {
                     largeIconMethod.createHook {
                         before {
                             val resource = it.thisObject.javaClass.fieldFinder()
-                                .filterByType(loadClass("com.android.thememanager.basemodule.resource.model.Resource", lpparam.classLoader)).first()
+                                .filterByType(
+                                    loadClass(
+                                        "com.android.thememanager.basemodule.resource.model.Resource",
+                                        lpparam.classLoader
+                                    )
+                                ).first()
                             val productId =
-                                it.thisObject.objectHelper().getObjectOrNull(resource.name)!!.objectHelper().invokeMethodBestMatch("getProductId").toString()
+                                it.thisObject.objectHelper().getObjectOrNull(resource.name)!!.objectHelper()
+                                    .invokeMethodBestMatch("getProductId").toString()
                             val strPath =
                                 "/storage/emulated/0/Android/data/com.android.thememanager/files/MIUI/theme/.data/rights/theme/${productId}-largeicons.mra"
                             val file = File(strPath)
@@ -109,7 +122,8 @@ class MainHook : IXposedHookLoadPackage {
                 }
 
                 try {
-                    loadClass("com.android.thememanager.detail.theme.model.OnlineResourceDetail").methodFinder().filterByName("toResource").toList()
+                    loadClass("com.android.thememanager.detail.theme.model.OnlineResourceDetail").methodFinder()
+                        .filterByName("toResource").toList()
                         .createHooks {
                             after {
                                 it.thisObject.objectHelper().setObject("bought", true)
@@ -119,9 +133,10 @@ class MainHook : IXposedHookLoadPackage {
                     Log.ex(t)
                 }
                 try {
-                    loadClass("com.miui.maml.widget.edit.MamlutilKt").methodFinder().filterByName("themeManagerSupportPaidWidget").first().createHook {
-                        returnConstant(false)
-                    }
+                    loadClass("com.miui.maml.widget.edit.MamlutilKt").methodFinder()
+                        .filterByName("themeManagerSupportPaidWidget").first().createHook {
+                            returnConstant(false)
+                        }
                 } catch (t: Throwable) {
                     Log.ex(t)
                 }
@@ -140,7 +155,8 @@ class MainHook : IXposedHookLoadPackage {
                     Log.ex(t)
                 }
                 try {
-                    loadClass("com.android.thememanager.basemodule.ad.model.AdInfoResponse").methodFinder().filterByName("isAdValid").filterByParamCount(1)
+                    loadClass("com.android.thememanager.basemodule.ad.model.AdInfoResponse").methodFinder()
+                        .filterByName("isAdValid").filterByParamCount(1)
                         .first().createHook {
                             returnConstant(false)
                         }
@@ -155,11 +171,13 @@ class MainHook : IXposedHookLoadPackage {
 
             "com.miui.personalassistant" -> {
                 try {
-                    loadClass("com.miui.maml.widget.edit.MamlutilKt").methodFinder().filterByName("themeManagerSupportPaidWidget").first().createHook {
-                        returnConstant(false)
-                    }
+                    loadClass("com.miui.maml.widget.edit.MamlutilKt").methodFinder()
+                        .filterByName("themeManagerSupportPaidWidget").first().createHook {
+                            returnConstant(false)
+                        }
 
-                    loadClass("com.miui.personalassistant.picker.business.detail.PickerDetailViewModel").methodFinder().filterByName("isCanDirectAddMaMl")
+                    loadClass("com.miui.personalassistant.picker.business.detail.PickerDetailViewModel").methodFinder()
+                        .filterByName("isCanDirectAddMaMl")
                         .first().createHook {
                             returnConstant(true)
                         }
@@ -169,31 +187,37 @@ class MainHook : IXposedHookLoadPackage {
                             returnConstant(true)
                         }
 
-                    loadClass("com.miui.personalassistant.picker.business.detail.utils.PickerDetailUtil").methodFinder().filterByName("isCanAutoDownloadMaMl")
+                    loadClass("com.miui.personalassistant.picker.business.detail.utils.PickerDetailUtil").methodFinder()
+                        .filterByName("isCanAutoDownloadMaMl")
                         .first().createHook {
                             returnConstant(true)
                         }
 
-                    loadClass("com.miui.personalassistant.picker.business.detail.bean.PickerDetailResponse").methodFinder().filterByName("isPay").first()
+                    loadClass("com.miui.personalassistant.picker.business.detail.bean.PickerDetailResponse").methodFinder()
+                        .filterByName("isPay").first()
                         .createHook {
                             returnConstant(false)
                         }
 
-                    loadClass("com.miui.personalassistant.picker.business.detail.bean.PickerDetailResponse").methodFinder().filterByName("isBought").first()
+                    loadClass("com.miui.personalassistant.picker.business.detail.bean.PickerDetailResponse").methodFinder()
+                        .filterByName("isBought").first()
                         .createHook {
                             returnConstant(true)
                         }
 
-                    loadClass("com.miui.personalassistant.picker.business.detail.bean.PickerDetailResponseWrapper").methodFinder().filterByName("isPay").first()
+                    loadClass("com.miui.personalassistant.picker.business.detail.bean.PickerDetailResponseWrapper").methodFinder()
+                        .filterByName("isPay").first()
                         .createHook {
                             returnConstant(false)
                         }
 
-                    loadClass("com.miui.personalassistant.picker.bean.cards.RegularWidgetEntity").methodFinder().filterByName("isPay").first().createHook {
-                        returnConstant(false)
-                    }
+                    loadClass("com.miui.personalassistant.picker.bean.cards.RegularWidgetEntity").methodFinder()
+                        .filterByName("isPay").first().createHook {
+                            returnConstant(false)
+                        }
 
-                    loadClass("com.miui.personalassistant.picker.business.detail.bean.PickerDetailResponseWrapper").methodFinder().filterByName("isBought")
+                    loadClass("com.miui.personalassistant.picker.business.detail.bean.PickerDetailResponseWrapper").methodFinder()
+                        .filterByName("isBought")
                         .first().createHook {
                             returnConstant(true)
                         }
@@ -213,9 +237,10 @@ class MainHook : IXposedHookLoadPackage {
                             returnConstant(true)
                         }
 
-                    loadClass("com.miui.personalassistant.picker.bean.cards.SuitEntity").methodFinder().filterByName("isShowPayLogo").first().createHook {
-                        returnConstant(false)
-                    }
+                    loadClass("com.miui.personalassistant.picker.bean.cards.SuitEntity").methodFinder()
+                        .filterByName("isShowPayLogo").first().createHook {
+                            returnConstant(false)
+                        }
                 } catch (t: Throwable) {
                     Log.ex(t)
                 }
@@ -223,13 +248,15 @@ class MainHook : IXposedHookLoadPackage {
 
             "com.miui.home" -> {
                 try {
-                    loadClass("com.miui.maml.widget.edit.MamlutilKt").methodFinder().filterByName("themeManagerSupportPaidWidget").first().createHook {
-                        returnConstant(false)
-                    }
+                    loadClass("com.miui.maml.widget.edit.MamlutilKt").methodFinder()
+                        .filterByName("themeManagerSupportPaidWidget").first().createHook {
+                            returnConstant(false)
+                        }
 
-                    loadClass("com.miui.home.launcher.gadget.MaMlPendingHostView").methodFinder().filterByName("isCanAutoStartDownload").first().createHook {
-                        returnConstant(true)
-                    }
+                    loadClass("com.miui.home.launcher.gadget.MaMlPendingHostView").methodFinder()
+                        .filterByName("isCanAutoStartDownload").first().createHook {
+                            returnConstant(true)
+                        }
                 } catch (t: Throwable) {
                     Log.ex(t)
                 }
